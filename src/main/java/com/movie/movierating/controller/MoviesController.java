@@ -3,6 +3,7 @@ package com.movie.movierating.controller;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -42,7 +43,7 @@ public class MoviesController {
 	
 	
 	@PutMapping("/movie/{id}")
-	Movie update(@RequestBody final Movie registerMovie, @PathVariable Long id) {
+	Movie updateMovie(@RequestBody final Movie registerMovie, @PathVariable Long id) {
 		return repository.findById(id)
 				.map(movie -> {
 					movie.setTitle(registerMovie.getTitle());
@@ -55,6 +56,11 @@ public class MoviesController {
 					registerMovie.setId(id);
 					return repository.save(registerMovie);
 				});
+	}
+	
+	@DeleteMapping("/movie/{id}")
+	void deleteMovie(@PathVariable Long id) {
+		repository.deleteById(id);
 	}
 	
 
