@@ -3,6 +3,7 @@ package com.movie.movierating.controller;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -45,7 +46,7 @@ public class DirectorController {
 	
 	
 	@PutMapping("/director/{id}")
-	Director updateMovie(@RequestBody final Director registerDirector, @PathVariable Long id) {
+	Director update(@RequestBody final Director registerDirector, @PathVariable Long id) {
 		return repository.findById(id)
 				.map(director -> {
 					director.setName(registerDirector.getName());
@@ -56,6 +57,10 @@ public class DirectorController {
 					registerDirector.setId(id);
 					return repository.save(registerDirector);
 				});
+	}
+	@DeleteMapping("/director/{id}")
+	void deleteDirector(@PathVariable Long id) {
+		repository.deleteById(id);
 	}
 	
 }
