@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+
 @Entity
 public class Movie {
 
@@ -16,9 +17,7 @@ public class Movie {
 	private int duration;
 	private double score;
 	
-	Directors director[];	
-	GenreEnum genre[];
-	
+	private Director[] directors;	
 	
 	
 	public Long getId() {
@@ -51,20 +50,11 @@ public class Movie {
 	public void setScore(double score) {
 		this.score = score;
 	}
-	public Directors[] getDirector() {
-		return director;
+	public Director[] getDirector() {
+		return directors;
 	}
-	public void setDirector(Directors[] director) {
-		this.director = director;
-	}
-	public GenreEnum[] getGenres() {
-		return genre;
-	}
-	public void setGenres(GenreEnum[] genres) {
-		this.genre = genres;
-	}
-	
-	
-	
+	public void setDirector(Director[] directors) {
+		this.directors = directors;
+	}	
 	
 }
