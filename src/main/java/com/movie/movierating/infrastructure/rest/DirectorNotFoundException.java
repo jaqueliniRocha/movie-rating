@@ -1,4 +1,4 @@
-package com.movie.movierating.controller;
+package com.movie.movierating.infrastructure.rest;
 
 public class DirectorNotFoundException extends RuntimeException {
 
