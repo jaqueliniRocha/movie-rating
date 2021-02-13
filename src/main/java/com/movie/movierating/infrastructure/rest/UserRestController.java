@@ -2,6 +2,8 @@ package com.movie.movierating.infrastructure.rest;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -32,28 +34,24 @@ public class UserRestController {
 	}
 
 	@PostMapping("/user")
-	User newUser(@RequestBody User newUser) {
-		return userService.save(newUser);
+	User newUser(@RequestBody @Valid User userRequest) {
+		return userService.save(userRequest);
 	}
 
 	@GetMapping("/user/{id}")
 	User findById(@PathVariable Long id) {
-
 		return repository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
 	}
 
 	@PutMapping("/user/{id}")
-	User replaceUser(@RequestBody User newUser, @PathVariable Long id) {
+	User replaceUser(@RequestBody @Valid User userRequest, @PathVariable Long id) {
 		return repository.findById(id).map(user -> {
-			user.setName(newUser.getName());
-			user.setCpf(newUser.getCpf());
-			user.setEmail(newUser.getEmail());
-			user.setPassword(newUser.getPassword());
+			user.setName(userRequest.getName());
+			user.setEmail(userRequest.getEmail());
+			user.setPassword(userRequest.getPassword());
 			return repository.save(user);
-		}).orElseGet(() -> {
-			newUser.setId(id);
-			return repository.save(newUser);
-		});
+		}).orElseThrow(() -> new UserNotFoundException(id));
+
 	}
 
 	@DeleteMapping("/user/{id}")

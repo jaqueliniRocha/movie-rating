@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 public class Movie {
@@ -11,12 +12,15 @@ public class Movie {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
+	@NotBlank
 	private String title;
-	private String year;
+	
+	private int year;
 	private int duration;
-	private double score;
-
-	private Director[] directors;
+	private Double score;
+	
+	private GenreEnum genre;
 
 	public Long getId() {
 		return id;
@@ -34,11 +38,11 @@ public class Movie {
 		this.title = title;
 	}
 
-	public String getYear() {
+	public int getYear() {
 		return year;
 	}
 
-	public void setYear(String year) {
+	public void setYear(int year) {
 		this.year = year;
 	}
 
@@ -50,20 +54,20 @@ public class Movie {
 		this.duration = duration;
 	}
 
-	public double getScore() {
+	public Double getScore() {
 		return score;
 	}
 
-	public void setScore(double score) {
+	public void setScore(Double score) {
 		this.score = score;
 	}
 
-	public Director[] getDirector() {
-		return directors;
+	public GenreEnum getGenre() {
+		return genre;
 	}
 
-	public void setDirector(Director[] directors) {
-		this.directors = directors;
+	public void setGenre(GenreEnum genre) {
+		this.genre = genre;
 	}
 
 }
