@@ -5,6 +5,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,17 +35,17 @@ public class UserRestController {
 	}
 
 	@PostMapping("/user")
-	User newUser(@RequestBody @Valid User userRequest) {
+	User save(@RequestBody @Valid User userRequest) {
 		return userService.save(userRequest);
 	}
 
 	@GetMapping("/user/{id}")
-	User findById(@PathVariable Long id) {
+	User getById(@PathVariable Long id) {
 		return repository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
 	}
 
 	@PutMapping("/user/{id}")
-	User replaceUser(@RequestBody @Valid User userRequest, @PathVariable Long id) {
+	User update(@RequestBody @Valid User userRequest, @PathVariable Long id) {
 		return repository.findById(id).map(user -> {
 			user.setName(userRequest.getName());
 			user.setEmail(userRequest.getEmail());
@@ -55,7 +56,8 @@ public class UserRestController {
 	}
 
 	@DeleteMapping("/user/{id}")
-	void deleteUser(@PathVariable Long id) {
+	public ResponseEntity<Void> delete(@PathVariable Long id) {
 		repository.deleteById(id);
+		return ResponseEntity.noContent().build();
 	}
 }

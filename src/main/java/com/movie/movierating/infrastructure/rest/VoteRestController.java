@@ -19,7 +19,7 @@ public class VoteRestController {
 	private VoteRepository repository;
 
 	@PostMapping("/vote")
-	Vote registerVote(@RequestBody @Valid Vote voteRequest) {
+	Vote save(@RequestBody @Valid Vote voteRequest) {
 		return repository.save(voteRequest);
 	}
 }
